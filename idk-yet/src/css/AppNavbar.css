@@ -1,0 +1,25 @@
+.navbar {
+    font-family: source-code-pro, Menlo, Monaco, "Courier",
+    monospace !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.navbar-brand {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace !important;
+    padding-left: 250px !important;
+    color: #2B2D42 !important;
+}
+
+.navbar-nav {
+    padding-right: 250px !important;
+}
+
+.nav-link {
+    color: #2B2D42 !important;
+}
+
+.logo {
+    margin-right: 10px;
+}
