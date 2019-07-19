@@ -2,7 +2,7 @@ import React from "react";
 import "./../css/App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./Home";
-import AppNavbar from "./AppNavbar";
+import Solo from "./Solo";
 
 export default class App extends React.Component {
   render() {
@@ -10,6 +10,7 @@ export default class App extends React.Component {
       <Router>
         <div>
           <Route path="/" exact component={Home} />
+          <Route path="/solo" exact component={Solo} />
         </div>
       </Router>
     );

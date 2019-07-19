@@ -2,4 +2,21 @@ body {
     font-family: Helvetica, "Helvetica",
     monospace !important;
     color: #2B2D42 !important;
+    background-color: #EDF2F4 !important;
+}
+
+button {
+    background-color: #8D99AE !important;
+    border-color: transparent !important; 
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace !important;
+}
+
+button:hover {
+    background-color: #2B2D42 !important;
+    border-color: transparent !important; 
+}
+
+button:focus {
+    box-shadow: none !important;
 }

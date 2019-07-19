@@ -9,14 +9,8 @@ export default class Home extends React.Component {
       <div>
         <AppNavbar />
         <div className="home">
-          asdf
-          <Button color="primary">primary</Button>{" "}
-          <Button color="secondary">secondary</Button>{" "}
-          <Button color="success">success</Button>{" "}
-          <Button color="info">info</Button>{" "}
-          <Button color="warning">warning</Button>{" "}
-          <Button color="danger">danger</Button>{" "}
-          <Button color="link">link</Button>
+          Lorem ipsum asdf. <br /><br />
+          <Button color="primary" onClick={() => {this.props.history.push("/solo")}}>Solo</Button>
         </div>
       </div>
     );

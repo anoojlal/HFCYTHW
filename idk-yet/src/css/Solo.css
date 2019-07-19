@@ -1,0 +1,13 @@
+.solo {
+    margin-top: 50px !important;
+    margin-bottom: 50px !important;
+    margin-left: 15% !important;
+    margin-right: 15% !important;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace !important;
+}
+
+.codeBlock {
+    white-space: pre-wrap !important;
+    tab-size: 4;
+}

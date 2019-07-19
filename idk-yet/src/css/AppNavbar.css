@@ -1,23 +1,32 @@
 .navbar {
     font-family: source-code-pro, Menlo, Monaco, "Courier",
     monospace !important;
-    padding-left: 0px !important;
-    padding-right: 0px !important;
+    padding-left: 15% !important;
+    padding-right: 15% !important;
+    background-color: #EF233C !important;
+    border-bottom: 4px solid #D90429 !important;
+}
+
+navbar-light {
+    background-color: #EF233C !important;
 }
 
 .navbar-brand {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace !important;
-    padding-left: 250px !important;
-    color: #2B2D42 !important;
+    color: #EDF2F4 !important;
 }
 
-.navbar-nav {
-    padding-right: 250px !important;
+.navbar-brand:hover {
+    color: white !important;
 }
 
 .nav-link {
-    color: #2B2D42 !important;
+    color: #EDF2F4 !important;
+}
+
+.nav-link:hover {
+    color: white !important;
 }
 
 .logo {

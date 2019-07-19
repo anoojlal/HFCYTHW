@@ -13,7 +13,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import Logo from '@material-ui/icons/Code';
+import Logo from "@material-ui/icons/Code";
 
 export default class AppNavbar extends React.Component {
   constructor(props) {
@@ -34,16 +34,16 @@ export default class AppNavbar extends React.Component {
   render() {
     return (
       <div>
-        <Navbar classname="navbar" color="light" light expand="md">
+        <Navbar classname="navbar" light expand="md">
           <NavbarBrand href="/">
-            <Logo className="logo"/>
+            <Logo className="logo" />
             appName
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/components/">Components</NavLink>
+                <NavLink href="/">Home</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="https://github.com/reactstrap/reactstrap">
