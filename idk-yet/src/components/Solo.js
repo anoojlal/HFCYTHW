@@ -10,40 +10,55 @@ export default class Solo extends React.Component {
     super(props);
 
     const codeBlock =
-      'public class HelloWorld {\n\tpublic static void main(String[] args) {\n\t\tSystem.out.println("Hello World!aaaaaaaaaaaaaaaaaaaaaaaaa");\n\t}\n}';
+      'public class HelloWorld {\n\tpublic static void main(String[] args) {\n\t\tSystem.out.println("Hello World!");\n\t}\n}';
 
     this.state = {
-      codeBlock: codeBlock
+      codeBlock: codeBlock,
+      completed: "",
+      current: codeBlock.charAt(0),
+      incorrect: "",
+      remaining: codeBlock.substring(1)
     };
   }
 
+  componentDidMount() {
+    console.log(document.getElementById("syntaxHighlighter"));
+  }
+
   render() {
+    const { codeBlock, completed, current, incorrect, remaining } = this.state;
+
     const customStyle = {
-        whiteSpace: 'pre-wrap',
-        marginBottom: '0px',
-        backgroundColor: 'white'
-    }
+      whiteSpace: "pre-wrap",
+      marginBottom: "0px",
+      backgroundColor: "white",
+      paddingLeft: "15%",
+      paddingRight: "15%",
+      tabSize: "4"
+    };
 
     return (
-        <div>
-            <AppNavbar />
-      <div className="solo">
-        <Button
-          color="primary"
-          onClick={() => {
-            this.props.history.push("/");
-          }}
-        >
-          Home
-        </Button>
-        <br />
-        <br />
-        <div className="codeBlock">
-          <SyntaxHighlighter language="java" style={github} customStyle={customStyle} showLineNumbers>
-            {this.state.codeBlock}
-          </SyntaxHighlighter>
+      <div>
+        <AppNavbar />
+        <div className="solo">
+          <span class="blinking-cursor">|</span>
+          <div className="codeBlock">
+            <div className="overlay">
+              <div className="lineNumbers">{"a\na\na\na\na\n"}</div>
+              <div>
+                {completed + current + incorrect + remaining}
+              </div>
+            </div>
+            <SyntaxHighlighter
+              language="java"
+              style={github}
+              customStyle={customStyle}
+              showLineNumbers
+            >
+              {codeBlock}
+            </SyntaxHighlighter>
+          </div>
         </div>
-      </div>
       </div>
     );
   }

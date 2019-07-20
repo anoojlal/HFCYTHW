@@ -1,13 +1,98 @@
 .solo {
     margin-top: 50px !important;
     margin-bottom: 50px !important;
-    margin-left: 15% !important;
-    margin-right: 15% !important;
+    margin-left: 0% !important;
+    margin-right: 0% !important;
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace !important;
 }
 
 .codeBlock {
-    white-space: pre-wrap !important;
     tab-size: 4;
+    white-space: pre-wrap;
+}
+
+.overlay {
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em 15%;
+    color: rgb(51, 51, 51);
+    background: transparent;
+    white-space: pre-wrap;
+    margin-bottom: 0px;
+    font-size: 87.5%;
+    margin-top: 0;
+    overflow: auto;
+    font-family: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+    position: fixed;
+    z-index: 2;
+    width: 100%;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    text-decoration: underline;
+}
+
+.lineNumbers {
+    float: left; 
+    padding-right: 10px;
+    color: red;
+}
+
+.blinking-cursor {
+    font-weight: 100;
+    color: #2B2D42;
+    -webkit-animation: 1s blink step-end infinite;
+    -moz-animation: 1s blink step-end infinite;
+    -ms-animation: 1s blink step-end infinite;
+    -o-animation: 1s blink step-end infinite;
+    animation: 1s blink step-end infinite;
+}
+
+@keyframes blink {
+    from, to {
+        color: transparent;
+    }
+    50% {
+        color: #2B2D42;
+    }
+}
+
+@-moz-keyframes blink {
+    from, to {
+        color: transparent;
+    }
+    50% {
+        color: #2B2D42;
+    }
+}
+
+@-webkit-keyframes blink {
+    from, to {
+        color: transparent;
+    }
+    50% {
+        color: #2B2D42;
+    }
+}
+
+@-ms-keyframes blink {
+    from, to {
+        color: transparent;
+    }
+    50% {
+        color: #2B2D42;
+    }
+}
+
+@-o-keyframes blink {
+    from, to {
+        color: transparent;
+    }
+    50% {
+        color: #2B2D42;
+    }
 }
