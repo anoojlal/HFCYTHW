@@ -16,7 +16,7 @@
     display: block;
     overflow-x: auto;
     padding: 0.5em 15%;
-    color: rgb(51, 51, 51);
+    color: transparent;
     background: transparent;
     white-space: pre-wrap;
     margin-bottom: 0px;
@@ -42,57 +42,63 @@
     color: red;
 }
 
-.blinking-cursor {
-    font-weight: 100;
+.current {
+    display: inline !important;
+    -webkit-animation: 700ms blink step-end infinite;
+    -moz-animation: 700ms blink step-end infinite;
+    -ms-animation: 700ms blink step-end infinite;
+    -o-animation: 700ms blink step-end infinite;
+    animation: 700ms blink step-end infinite;
     color: #2B2D42;
-    -webkit-animation: 1s blink step-end infinite;
-    -moz-animation: 1s blink step-end infinite;
-    -ms-animation: 1s blink step-end infinite;
-    -o-animation: 1s blink step-end infinite;
-    animation: 1s blink step-end infinite;
+    font-weight: bold;
+}
+
+.incorrect {
+    display: inline !important;
+    background: red;
 }
 
 @keyframes blink {
     from, to {
-        color: transparent;
+        background: transparent;
     }
     50% {
-        color: #2B2D42;
+        background: #EDF2F4;
     }
 }
 
 @-moz-keyframes blink {
     from, to {
-        color: transparent;
+        background: transparent;
     }
     50% {
-        color: #2B2D42;
+        background: #EDF2F4;
     }
 }
 
 @-webkit-keyframes blink {
     from, to {
-        color: transparent;
+        background: transparent;
     }
     50% {
-        color: #2B2D42;
+        background: #EDF2F4;
     }
 }
 
 @-ms-keyframes blink {
     from, to {
-        color: transparent;
+        background: transparent;
     }
     50% {
-        color: #2B2D42;
+        background: #EDF2F4;
     }
 }
 
 @-o-keyframes blink {
     from, to {
-        color: transparent;
+        background: transparent;
     }
     50% {
-        color: #2B2D42;
+        background: #EDF2F4;
     }
 }

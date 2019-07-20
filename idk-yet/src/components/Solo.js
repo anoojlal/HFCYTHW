@@ -41,13 +41,13 @@ export default class Solo extends React.Component {
       <div>
         <AppNavbar />
         <div className="solo">
-          <span class="blinking-cursor">|</span>
           <div className="codeBlock">
             <div className="overlay">
               <div className="lineNumbers">{"a\na\na\na\na\n"}</div>
-              <div>
-                {completed + current + incorrect + remaining}
-              </div>
+              <span>{completed}</span>
+              <span className="current">{current}</span>
+              <span className="incorrect">{incorrect}</span>
+              <span>{remaining}</span>
             </div>
             <SyntaxHighlighter
               language="java"
