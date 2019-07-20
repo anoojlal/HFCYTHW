@@ -16,8 +16,8 @@
     display: block;
     overflow-x: auto;
     padding: 0.5em 15%;
-    color: transparent;
-    background: transparent;
+    color: black; /* change to transparent */
+    background: white; /* change to transparent */
     white-space: pre-wrap;
     margin-bottom: 0px;
     font-size: 87.5%;
@@ -33,7 +33,6 @@
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none;
-    text-decoration: underline;
 }
 
 .lineNumbers {

@@ -19,10 +19,19 @@ export default class Solo extends React.Component {
       incorrect: "",
       remaining: codeBlock.substring(1)
     };
+
+    this.getLineNumbers = this.getLineNumbers.bind(this);
   }
 
-  componentDidMount() {
-    console.log(document.getElementById("syntaxHighlighter"));
+  getLineNumbers() {
+    const numLines = this.state.codeBlock.split('\n').length;
+    let lineNumbers = "";
+
+    for (let i = 1; i <= numLines; i++) {
+      lineNumbers = lineNumbers + i + "\n";
+    }
+    
+    return lineNumbers;
   }
 
   render() {
@@ -34,8 +43,11 @@ export default class Solo extends React.Component {
       backgroundColor: "white",
       paddingLeft: "15%",
       paddingRight: "15%",
-      tabSize: "4"
+      tabSize: "4",
+      display: "none"
     };
+
+    const lineNumbers = this.getLineNumbers();
 
     return (
       <div>
@@ -43,7 +55,7 @@ export default class Solo extends React.Component {
         <div className="solo">
           <div className="codeBlock">
             <div className="overlay">
-              <div className="lineNumbers">{"a\na\na\na\na\n"}</div>
+              <div className="lineNumbers">{lineNumbers}</div>
               <span>{completed}</span>
               <span className="current">{current}</span>
               <span className="incorrect">{incorrect}</span>
