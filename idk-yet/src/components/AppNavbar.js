@@ -42,7 +42,7 @@ export default class AppNavbar extends React.Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              <NavItem>
+              <NavItem tabIndex="-2">
                 <NavLink href="/">Home</NavLink>
               </NavItem>
               <NavItem>
