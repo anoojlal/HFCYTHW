@@ -105,7 +105,25 @@ export default class Solo extends React.Component {
   }
 
   handleBackspace() {
-    console.log("back");
+    let { codeBlock, completed, incorrect, current, remaining, finished } = this.state;
+
+    if (completed.length === 0) {
+      return;
+    }
+
+    if (incorrect.length > 0) {
+      incorrect = incorrect.substring(0, incorrect.length - 1);
+    } else {
+      remaining = current + remaining;
+      current = completed.charAt(completed.length - 1);
+      completed = completed.substring(0, completed.length - 1);
+    }
+
+    this.setState({
+      completed: completed,
+      remaining: remaining,
+      current: current
+    })
   }
 
   getLineNumbers() {
