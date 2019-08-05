@@ -121,9 +121,15 @@ export default class Solo extends React.Component {
 
     this.setState({
       completed: completed,
+      incorrect: incorrect,
       remaining: remaining,
+      pressEnter: current === '\n',
       current: current
     })
+
+    if (current === '\t') {
+      this.handleBackspace();
+    }
   }
 
   getLineNumbers() {
