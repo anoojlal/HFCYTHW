@@ -3,6 +3,7 @@ import "./../css/Solo.css";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { github } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import AppNavbar from "./AppNavbar.js";
+import PressEnter from "@material-ui/icons/KeyboardReturn";
 
 export default class Solo extends React.Component {
   constructor(props) {
@@ -16,32 +17,49 @@ export default class Solo extends React.Component {
       completed: "",
       current: codeBlock.charAt(0),
       incorrect: "",
-      remaining: codeBlock.substring(1)
+      remaining: codeBlock.substring(1),
+      finished: false,
+      pressEnter: false
     };
 
     this.getLineNumbers = this.getLineNumbers.bind(this);
-    this.handleInput = this.handleInput.bind(this);
-    this.handleBackspace = this.handleBackspace.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleCorrectInput = this.handleCorrectInput.bind(this);
   }
 
-  handleInput(event) {
+  componentDidMount() {
+    document.addEventListener("keypress", this.handleKeyPress, false);
+    document.addEventListener("keydown", this.handleBackspace, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keypress", this.handleKeyPress, false);
+    document.removeEventListener("keydown", this.handleKeyDown, false);
+  }
+
+  handleKeyPress(event) {
     if (event.defaultPrevented) {
       return;
     }
-
+  
     const key = event.keyCode;
+    const valid = (key >= 32 && key <= 126) || key === 13;
+    const { current, pressEnter } = this.state;
 
-    const valid = 
-      (key >= 32 && key <= 126)
+    if (valid) {
+      if (String.fromCharCode(key) === current ||
+        (pressEnter && key === 13)) {
+        this.handleCorrectInput();
+      } else {
 
-    if (valid || key === 13) {
-      console.log("Valid: " + String.fromCharCode(key));
+      }
     } else {
-      console.log("Not valid: " + String.fromCharCode(key));
+
     }
   }
 
-  handleBackspace(event) {
+  handleKeyDown(event) {
     if (event.defaultPrevented) {
       return;
     }
@@ -57,14 +75,32 @@ export default class Solo extends React.Component {
     }
   }
 
-  componentDidMount() {
-    document.addEventListener("keypress", this.handleInput, false);
-    document.addEventListener("keydown", this.handleBackspace, false);
-  }
+  handleCorrectInput() {
+    let { codeBlock, completed, current, remaining, finished } = this.state;
 
-  componentWillUnmount() {
-    document.removeEventListener("keypress", this.handleInput, false);
-    document.removeEventListener("keydown", this.handleBackspace, false);
+    completed = completed + current;
+    current = remaining.charAt(0);
+    remaining = remaining.substring(1);
+    finished = codeBlock === completed;
+
+    this.setState({
+      completed: completed, 
+      current: current, 
+      remaining: remaining,
+      pressEnter: current === '\n',
+      finished: finished
+    });
+
+    if (finished) {
+      document.removeEventListener("keypress", this.handleKeyPress, false);
+      document.removeEventListener("keydown", this.handleKeyDown, false);
+
+      console.log("Finished!");
+    }
+
+    if (current === '\t') {
+      this.handleCorrectInput();
+    }
   }
 
   getLineNumbers() {
@@ -79,7 +115,7 @@ export default class Solo extends React.Component {
   }
 
   render() {
-    const { codeBlock, completed, current, incorrect, remaining } = this.state;
+    const { codeBlock, completed, current, incorrect, remaining, pressEnter } = this.state;
 
     const customStyle = {
       whiteSpace: "pre-wrap",
@@ -88,7 +124,13 @@ export default class Solo extends React.Component {
       paddingLeft: "15%",
       paddingRight: "15%",
       tabSize: "4",
-      display: "none"
+      webkitTouchCallout: "none", /* iOS Safari */
+      webkitUserSelect: "none", /* Safari */
+      khtmlUserSelect: "none", /* Konqueror HTML */
+      mozUserSelect: "none", /* Firefox */
+      msUserSelect: "none", /* Internet Explorer/Edge */
+      userSelect: "none"
+      //display: "none"
     };
 
     const lineNumbers = this.getLineNumbers();
@@ -101,7 +143,7 @@ export default class Solo extends React.Component {
             <div className="overlay">
               <div className="lineNumbers">{lineNumbers}</div>
               <span>{completed}</span>
-              <span className="current">{current}</span>
+              <span className="current">{pressEnter && <PressEnter className="pressEnter"/>}{current}</span>
               <span className="incorrect">{incorrect}</span>
               <span>{remaining}</span>
             </div>
