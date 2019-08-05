@@ -26,11 +26,14 @@ export default class Solo extends React.Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleCorrectInput = this.handleCorrectInput.bind(this);
+    this.handleBackspace = this.handleBackspace.bind(this);
+
+    this.codeBlock = React.createRef();
   }
 
   componentDidMount() {
     document.addEventListener("keypress", this.handleKeyPress, false);
-    document.addEventListener("keydown", this.handleBackspace, false);
+    document.addEventListener("keydown", this.handleKeyDown, false);
   }
 
   componentWillUnmount() {
@@ -67,11 +70,9 @@ export default class Solo extends React.Component {
     const key = event.keyCode;
 
     if (key === 8) {
-      console.log("back");
-    }
-
-    if (key === 9 || key === 11) {
-      console.log("tab");
+      this.handleBackspace();
+    } else if (key === 9 || key === 11) {
+      event.preventDefault();
     }
   }
 
@@ -101,6 +102,10 @@ export default class Solo extends React.Component {
     if (current === '\t') {
       this.handleCorrectInput();
     }
+  }
+
+  handleBackspace() {
+    console.log("back");
   }
 
   getLineNumbers() {
