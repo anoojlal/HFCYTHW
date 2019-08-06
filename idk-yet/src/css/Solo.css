@@ -48,12 +48,24 @@
 
 .incorrect {
     display: inline !important;
-    background: red;
+    background: #2B2D42 !important;
+    color: #EDF2F4 !important;
 }
 
 .pressEnter {
     width: 0.70em !important;
     height: 0.75em !important;
+}
+
+.backspace {
+    width: 0.70em !important;
+    height: 0.75em !important;
+    padding-bottom: 0.13em !important;
+    -webkit-animation: 700ms blinkBackspace step-end infinite;
+    -moz-animation: 700ms blinkBackspace step-end infinite;
+    -ms-animation: 700ms blinkBackspace step-end infinite;
+    -o-animation: 700ms blinkBackspace step-end infinite;
+    animation: 700ms blinkBackspace step-end infinite;
 }
 
 @keyframes blink {
@@ -101,6 +113,59 @@
 }
 
 @-o-keyframes blink {
+    from, to {
+        background: transparent;
+        color: #2B2D42;
+    }
+    50% {
+        background: #EF233C;
+        color: #EDF2F4
+    }
+}
+
+@keyframes blinkBackspace {
+    from, to {
+        color: #EDF2F4;
+    }
+    50% {
+        color: transparent;
+    }
+}
+
+@-moz-keyframes blinkBackspace {
+    from, to {
+        background: transparent;
+        color: #2B2D42;
+    }
+    50% {
+        background: #EF233C;
+        color: #EDF2F4
+    }
+}
+
+@-webkit-keyframes blinkBackspace {
+    from, to {
+        background: transparent;
+        color: #2B2D42;
+    }
+    50% {
+        background: #EF233C;
+        color: #EDF2F4
+    }
+}
+
+@-ms-keyframes blinkBackspace {
+    from, to {
+        background: transparent;
+        color: #2B2D42;
+    }
+    50% {
+        background: #EF233C;
+        color: #EDF2F4
+    }
+}
+
+@-o-keyframes blinkBackspace {
     from, to {
         background: transparent;
         color: #2B2D42;
