@@ -71,7 +71,7 @@
 @keyframes blink {
     from, to {
         background: transparent;
-        color: #2B2D42;
+        color: transparent;
     }
     50% {
         background: #EF233C;
@@ -82,7 +82,7 @@
 @-moz-keyframes blink {
     from, to {
         background: transparent;
-        color: #2B2D42;
+        color: transparent;
     }
     50% {
         background: #EF233C;
@@ -93,7 +93,7 @@
 @-webkit-keyframes blink {
     from, to {
         background: transparent;
-        color: #2B2D42;
+        color: transparent;
     }
     50% {
         background: #EF233C;
@@ -104,7 +104,7 @@
 @-ms-keyframes blink {
     from, to {
         background: transparent;
-        color: #2B2D42;
+        color: transparent;
     }
     50% {
         background: #EF233C;
@@ -115,7 +115,7 @@
 @-o-keyframes blink {
     from, to {
         background: transparent;
-        color: #2B2D42;
+        color: transparent;
     }
     50% {
         background: #EF233C;

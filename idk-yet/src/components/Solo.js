@@ -3,6 +3,7 @@ import "./../css/Solo.css";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { github } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import AppNavbar from "./AppNavbar.js";
+import Console from "./Console.js";
 import PressEnter from "@material-ui/icons/KeyboardReturn";
 import Backspace from "@material-ui/icons/BackspaceOutlined";
 
@@ -239,6 +240,7 @@ export default class Solo extends React.Component {
               {codeBlock}
             </SyntaxHighlighter>
           </div>
+          <Console />
         </div>
       </div>
     );
