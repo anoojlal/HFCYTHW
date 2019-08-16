@@ -11,6 +11,16 @@ import {
 } from "reactstrap";
 import ArrowRight from "@material-ui/icons/KeyboardArrowRight";
 
+/*
+  What's displayed in the console:
+
+  Timer
+  WPM
+  Accuracy
+  "Line 10: Backspace your mistakes before progressing"
+  "Found 'a'; expected 's'"
+*/
+
 export default class Console extends React.Component {
   constructor(props) {
     super(props);
@@ -21,8 +31,10 @@ export default class Console extends React.Component {
   render() {
     return (
       <div className="console">
-        <ArrowRight className="arrowRight"/>
-        this the console yo
+        <div className="sticky">
+          <ArrowRight className="arrowRight"/>
+          this the console yo
+        </div>
       </div>
     );
   }

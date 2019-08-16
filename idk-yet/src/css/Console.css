@@ -1,12 +1,20 @@
 .console {
-    padding-left: 15% !important;
-    padding-right: 15% !important;
-    margin-top: 400px !important;
-    background: white;
     font-size: 87.5%;
+    position: relative;
+    background: white !important;
 }
 
 .arrowRight {
     height: 0.75em !important;
     color: #EF233C !important;
+}
+
+.sticky {
+    padding-left: 15% !important;
+    padding-right: 15% !important;
+    background: white !important;
+    width: 100%;
+    height: 10%;
+    position: fixed;    /*Here's what sticks it*/
+    bottom: 0;          /*to the bottom of the window*/
 }
