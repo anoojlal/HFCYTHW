@@ -25,13 +25,35 @@ export default class Console extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      logs: []
+    };
+  }
+
+  componentDidMount() {
+    const { logs } = this.state;
+
+    for (let i = 1; i <= 8; i++) {
+      logs.push("Console Log " + i);
+    }
+
+    this.setState({logs: logs});
   }
 
   render() {
+    const { logs } = this.state;
+    
     return (
       <div className="console">
         <div className="sticky">
+          {logs.map((log) => {
+            return (
+              <div className="info">
+                <ArrowRight className="arrowRight invisible"/>
+                {log}
+              </div>
+            );
+          })}
           <ArrowRight className="arrowRight"/>
           this the console yo
         </div>
