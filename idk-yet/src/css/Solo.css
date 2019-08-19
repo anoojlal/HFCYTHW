@@ -9,6 +9,7 @@
 .codeBlock {
     tab-size: 4;
     white-space: pre-wrap;
+    border-bottom: 3px solid #dcdfe0 !important;
 }
 
 .overlay {

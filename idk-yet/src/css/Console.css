@@ -21,10 +21,6 @@
 }
 
 .sticky {
-    padding-top: 7px;
-    padding-bottom: 7px;
-    padding-left: 15% !important;
-    padding-right: 15% !important;
     margin-bottom: 3% !important;
     background: white !important;
     width: 100%;
@@ -33,7 +29,14 @@
 }
 
 .log {
-    border-bottom: 1px solid #EDF2F4 !important;
+    border-bottom: 1px solid #EDF2F4;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.lastLog {
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 
 .warning {
@@ -42,4 +45,27 @@
 
 .error {
     background: #ffdbe0;
+}
+
+.consoleBreak {
+    background: #EDF2F4;
+    width: 100% !important;
+    padding-left: 0% !important;
+    padding-right: 0% !important;
+}
+
+.consoleInput {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 15% !important;
+    padding-right: 15% !important;
+    border-bottom: 3px solid #dcdfe0 !important;
+}
+
+.consoleLogs {
+    padding-left: 15%;
+    padding-right: 15%;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    border-bottom: 3px solid #dcdfe0 !important;
 }

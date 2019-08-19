@@ -63,33 +63,40 @@ export default class Console extends React.Component {
     return (
       <div className="console">
         <div className="sticky">
-          {logs.map(log => {
-            if (log.type === "warning") {
+          <div className="consoleLogs">
+            {logs.map((log, index) => {
+              let className = "";
+              let icon = <ArrowRight className="arrowRight invisible" />;
+              const last = index === logs.length - 1;
+
+              switch (log.type) {
+                case "warning":
+                  className = "warning " + (last ? "lastLog" : "log");
+                  icon = <WarningIcon className="warningIcon" />;
+                  break;
+                case "error":
+                  className = "error " + (last ? "lastLog" : "log");
+                  icon = <ErrorIcon className="errorIcon" />;
+                  break;
+                default:
+                  className = last ? "lastLog" : "log";
+                  break;
+              }
+
               return (
-                <div className="log warning">
-                  <WarningIcon className="warningIcon" />
+                <div className={className}>
+                  {icon}
                   {log.text}
                 </div>
               );
-            }
-
-            if (log.type === "error") {
-              return (
-                <div className="log error">
-                  <ErrorIcon className="errorIcon" />
-                  {log.text}
-                </div>
-              );
-            }
-
-            return (
-              <div className="log">
-                <ArrowRight className="arrowRight invisible" />
-                {log.text}
-              </div>
-            );
-          })}
-          <ArrowRight className="arrowRight" />
+            })}
+          </div>
+          <div className="consoleBreak">
+            <br />
+          </div>
+          <div className="consoleInput">
+            <ArrowRight className="arrowRight" />
+          </div>
         </div>
       </div>
     );

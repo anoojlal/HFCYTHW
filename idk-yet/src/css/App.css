@@ -3,6 +3,7 @@ body {
     monospace !important;
     color: #2B2D42 !important;
     background-color: #EDF2F4 !important;
+    line-height: 1.5 !important;
 }
 
 button {
