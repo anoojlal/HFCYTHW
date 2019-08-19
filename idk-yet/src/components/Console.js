@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import ArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import WarningIcon from "@material-ui/icons/WarningRounded";
+import ErrorIcon from "@material-ui/icons/ErrorRounded";
 
 /*
   What's displayed in the console:
@@ -40,6 +41,11 @@ export default class Console extends React.Component {
           text: "Console Log " + i,
           type: "warning"
         });
+      } else if (i === 4) {
+        logs.push({
+          text: "Console Log " + i,
+          type: "error"
+        });
       } else {
         logs.push({
           text: "Console Log " + i,
@@ -48,20 +54,29 @@ export default class Console extends React.Component {
       }
     }
 
-    this.setState({logs: logs});
+    this.setState({ logs: logs });
   }
 
   render() {
     const { logs } = this.state;
-    
+
     return (
       <div className="console">
         <div className="sticky">
-          {logs.map((log) => {
+          {logs.map(log => {
             if (log.type === "warning") {
               return (
                 <div className="log warning">
                   <WarningIcon className="warningIcon" />
+                  {log.text}
+                </div>
+              );
+            }
+
+            if (log.type === "error") {
+              return (
+                <div className="log error">
+                  <ErrorIcon className="errorIcon" />
                   {log.text}
                 </div>
               );
@@ -74,8 +89,7 @@ export default class Console extends React.Component {
               </div>
             );
           })}
-          <ArrowRight className="arrowRight"/>
-          this the console yo
+          <ArrowRight className="arrowRight" />
         </div>
       </div>
     );

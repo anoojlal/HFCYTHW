@@ -5,19 +5,27 @@
 
 .arrowRight {
     height: 0.75em !important;
-    color: #EF233C !important;
+    color: #D90429 !important;
 }
 
 .warningIcon {
     height: 0.75em !important;
-    color: #8D99AE !important;
+    color: #ffcd3b !important;
+    padding-bottom: 0.1em;
+}
+
+.errorIcon {
+    height: 0.72em !important;
+    color: #EF233C !important;
     padding-bottom: 0.1em;
 }
 
 .sticky {
+    padding-top: 7px;
+    padding-bottom: 7px;
     padding-left: 15% !important;
     padding-right: 15% !important;
-    padding-bottom: 3% !important;
+    margin-bottom: 3% !important;
     background: white !important;
     width: 100%;
     position: fixed;
@@ -30,4 +38,8 @@
 
 .warning {
     background: #fcffbd;
+}
+
+.error {
+    background: #ffdbe0;
 }
