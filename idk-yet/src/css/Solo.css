@@ -37,11 +37,11 @@
 
 .current {
     display: inline !important;
-    -webkit-animation: 700ms blink step-end infinite;
-    -moz-animation: 700ms blink step-end infinite;
-    -ms-animation: 700ms blink step-end infinite;
-    -o-animation: 700ms blink step-end infinite;
-    animation: 700ms blink step-end infinite;
+    -webkit-animation: 750ms blink step-end infinite;
+    -moz-animation: 750ms blink step-end infinite;
+    -ms-animation: 750ms blink step-end infinite;
+    -o-animation: 750ms blink step-end infinite;
+    animation: 750ms blink step-end infinite;
     color: #2B2D42;
     font-weight: bold;
 }
@@ -61,11 +61,11 @@
     width: 0.70em !important;
     height: 0.75em !important;
     padding-bottom: 0.13em !important;
-    -webkit-animation: 700ms blinkBackspace step-end infinite;
-    -moz-animation: 700ms blinkBackspace step-end infinite;
-    -ms-animation: 700ms blinkBackspace step-end infinite;
-    -o-animation: 700ms blinkBackspace step-end infinite;
-    animation: 700ms blinkBackspace step-end infinite;
+    -webkit-animation: 750ms blinkBackspace step-end infinite;
+    -moz-animation: 750ms blinkBackspace step-end infinite;
+    -ms-animation: 750ms blinkBackspace step-end infinite;
+    -o-animation: 750ms blinkBackspace step-end infinite;
+    animation: 750ms blinkBackspace step-end infinite;
 }
 
 @keyframes blink {

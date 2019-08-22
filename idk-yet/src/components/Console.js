@@ -7,7 +7,9 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink
+  NavLink,
+  Row,
+  Col
 } from "reactstrap";
 import ArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import WarningIcon from "@material-ui/icons/WarningRounded";
@@ -35,10 +37,10 @@ export default class Console extends React.Component {
   componentDidMount() {
     const { logs } = this.state;
 
-    for (let i = 1; i <= 8; i++) {
+    for (let i = 1; i <= 7; i++) {
       if (i === 6) {
         logs.push({
-          text: "Console Log " + i,
+          text: "Console Log " + i + "\nnew line of text",
           type: "warning"
         });
       } else if (i === 4) {
@@ -64,38 +66,64 @@ export default class Console extends React.Component {
       <div className="console">
         <div className="sticky">
           <div className="consoleLogs">
-            {logs.map((log, index) => {
-              let className = "";
+            {logs.map(log => {
+              let className = "log";
               let icon = <ArrowRight className="arrowRight invisible" />;
-              const last = index === logs.length - 1;
 
               switch (log.type) {
                 case "warning":
-                  className = "warning " + (last ? "lastLog" : "log");
+                  className = "warning log";
                   icon = <WarningIcon className="warningIcon" />;
                   break;
                 case "error":
-                  className = "error " + (last ? "lastLog" : "log");
+                  className = "error log";
                   icon = <ErrorIcon className="errorIcon" />;
                   break;
                 default:
-                  className = last ? "lastLog" : "log";
                   break;
               }
 
               return (
                 <div className={className}>
-                  {icon}
-                  {log.text}
+                  <Row>
+                    <Col>{icon}</Col>
+                    <Col>{log.text}</Col>
+                  </Row>
                 </div>
               );
             })}
+            <div className="stats">
+              <Row>
+                <Col>
+                  <ArrowRight className="arrowRight invisible" />
+                </Col>
+                <Col>{"Timer\nWPM\nAccuracy\nProgress"}</Col>
+                <Col>
+                  <ArrowRight className="arrowRight invisible" />
+                </Col>
+                <Col>{":\n:\n:\n:"}</Col>
+                <Col>
+                  <ArrowRight className="arrowRight invisible" />
+                </Col>
+                <Col>
+                  {"00:00:00" + "\n"}
+                  {"0" + "\n"}
+                  {"0.0%" + "\n"}
+                  {"[--------------------]"}
+                </Col>
+              </Row>
+            </div>
           </div>
           <div className="consoleBreak">
             <br />
           </div>
           <div className="consoleInput">
-            <ArrowRight className="arrowRight" />
+            <Row>
+              <Col>
+                <ArrowRight className="arrowRight" />
+              </Col>
+              <Col>{""}</Col>
+            </Row>
           </div>
         </div>
       </div>
