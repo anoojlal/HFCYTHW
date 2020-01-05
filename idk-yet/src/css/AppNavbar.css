@@ -1,5 +1,5 @@
 .navbar {
-    font-family: source-code-pro, Menlo, Monaco, "Courier",
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace !important;
     padding-left: 15% !important;
     padding-right: 15% !important;
@@ -12,8 +12,6 @@ navbar-light {
 }
 
 .navbar-brand {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace !important;
     color: #EDF2F4 !important;
 }
 

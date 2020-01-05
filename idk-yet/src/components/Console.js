@@ -41,17 +41,20 @@ export default class Console extends React.Component {
       if (i === 6) {
         logs.push({
           text: "Console Log " + i + "\nnew line of text",
-          type: "warning"
+          type: "warning",
+          line: Math.floor(Math.random() * 10) + 1
         });
       } else if (i === 4) {
         logs.push({
           text: "Console Log " + i,
-          type: "error"
+          type: "error",
+          line: Math.floor(Math.random() * 10) + 1
         });
       } else {
         logs.push({
           text: "Console Log " + i,
-          type: "info"
+          type: "info",
+          line: Math.floor(Math.random() * 10) + 1
         });
       }
     }
@@ -86,22 +89,23 @@ export default class Console extends React.Component {
               return (
                 <div className={className}>
                   <Row>
-                    <Col>{icon}</Col>
-                    <Col>{log.text}</Col>
+                    <Col xs="1">{icon}</Col>
+                    <Col xs="9"><div className="logText">{log.text}</div></Col>
+                    <Col xs="2"><div className="logLine">{"Line " + log.line}</div></Col>
                   </Row>
                 </div>
               );
             })}
             <div className="stats">
               <Row>
-                <Col>
+                <Col xs="1">
                   <ArrowRight className="arrowRight invisible" />
                 </Col>
                 <Col>{"Timer\nWPM\nAccuracy\nProgress"}</Col>
                 <Col>
                   <ArrowRight className="arrowRight invisible" />
                 </Col>
-                <Col>{":\n:\n:\n:"}</Col>
+                <Col><div className="colons">{":\n:\n:\n:"}</div></Col>
                 <Col>
                   <ArrowRight className="arrowRight invisible" />
                 </Col>

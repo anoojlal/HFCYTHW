@@ -6,6 +6,17 @@ import AppNavbar from "./AppNavbar.js";
 import Console from "./Console.js";
 import PressEnter from "@material-ui/icons/KeyboardReturn";
 import Backspace from "@material-ui/icons/BackspaceOutlined";
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  Row,
+  Col
+} from "reactstrap";
 
 export default class Solo extends React.Component {
   constructor(props) {
@@ -55,7 +66,7 @@ export default class Solo extends React.Component {
     const valid = (key >= 32 && key <= 126) || key === 13;
     const { current, pressEnter } = this.state;
 
-    if (inputChar === ' ') {
+    if (inputChar === " ") {
       event.preventDefault();
     }
 
@@ -178,7 +189,7 @@ export default class Solo extends React.Component {
     let lineNumbers = "";
 
     for (let i = 1; i <= numLines; i++) {
-      lineNumbers = lineNumbers + i + "\n";
+      lineNumbers = lineNumbers + " " + i + "\n";
     }
 
     return lineNumbers;
@@ -199,16 +210,15 @@ export default class Solo extends React.Component {
       whiteSpace: "pre-wrap",
       marginBottom: "0px",
       backgroundColor: "white",
-      paddingLeft: "15%",
-      paddingRight: "15%",
       tabSize: "4",
       webkitTouchCallout: "none" /* iOS Safari */,
       webkitUserSelect: "none" /* Safari */,
       khtmlUserSelect: "none" /* Konqueror HTML */,
       mozUserSelect: "none" /* Firefox */,
       msUserSelect: "none" /* Internet Explorer/Edge */,
-      userSelect: "none"
-      //display: "none"
+      userSelect: "none",
+      padding: "0em"
+      // display: "none"
     };
 
     const lineNumbers = this.getLineNumbers();
@@ -218,27 +228,35 @@ export default class Solo extends React.Component {
         <AppNavbar />
         <div className="solo">
           <div className="codeBlock">
-            <div className="overlay">
-              <div className="lineNumbers">{lineNumbers}</div>
-              <span>{completed}</span>
-              {!backspace && <span className="current">
-                {pressEnter && <PressEnter className="pressEnter" />}
-                {current}
-              </span>}
-              <span className="incorrect">
-                {incorrect}
-                {backspace && <Backspace className="backspace" />}
-              </span>
-              <span>{remaining}</span>
-            </div>
-            <SyntaxHighlighter
-              language="java"
-              style={github}
-              customStyle={customStyle}
-              showLineNumbers
-            >
-              {codeBlock}
-            </SyntaxHighlighter>
+            <Row>
+              <Col xs="1">
+                <div className="lineNumbers">{lineNumbers}</div>
+              </Col>
+              <Col xs="11">
+                <div className="overlay">
+                  <span>{completed}</span>
+                  {!backspace && (
+                    <span className="current">
+                      {pressEnter && <PressEnter className="pressEnter" />}
+                      {current}
+                    </span>
+                  )}
+                  <span className="incorrect">
+                    {incorrect}
+                    {backspace && <Backspace className="backspace" />}
+                  </span>
+                  <span>{remaining}</span>
+                </div>
+                <SyntaxHighlighter
+                  language="java"
+                  style={github}
+                  customStyle={customStyle}
+                  
+                >
+                  {codeBlock}
+                </SyntaxHighlighter>
+              </Col>
+            </Row>
           </div>
           <Console />
         </div>
