@@ -7,13 +7,6 @@ import Console from "./Console.js";
 import PressEnter from "@material-ui/icons/KeyboardReturn";
 import Backspace from "@material-ui/icons/BackspaceOutlined";
 import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
   Row,
   Col
 } from "reactstrap";
@@ -33,15 +26,17 @@ export default class Solo extends React.Component {
       remaining: codeBlock.substring(1),
       finished: false,
       pressEnter: false,
-      backspace: false
+      backspace: false,
+      logs: []
     };
 
-    this.getLineNumbers = this.getLineNumbers.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleCorrectInput = this.handleCorrectInput.bind(this);
     this.handleIncorrectInput = this.handleIncorrectInput.bind(this);
     this.handleBackspace = this.handleBackspace.bind(this);
+    this.getLineNumbers = this.getLineNumbers.bind(this);
+    this.getCurrentLineNumber = this.getCurrentLineNumber.bind(this);
   }
 
   componentDidMount() {
@@ -77,11 +72,8 @@ export default class Solo extends React.Component {
       ) {
         this.handleCorrectInput();
       } else {
-        this.handleIncorrectInput(inputChar);
+        this.handleIncorrectInput(key);
       }
-    } else {
-      console.log("Something invalid was entered:");
-      console.log(inputChar);
     }
   }
 
@@ -119,8 +111,6 @@ export default class Solo extends React.Component {
     if (finished) {
       document.removeEventListener("keypress", this.handleKeyPress, false);
       document.removeEventListener("keydown", this.handleKeyDown, false);
-
-      console.log("Finished!");
     }
 
     if (current === "\t") {
@@ -128,36 +118,48 @@ export default class Solo extends React.Component {
     }
   }
 
-  handleIncorrectInput(inputChar) {
+  handleIncorrectInput(key) {
     let {
-      codeBlock,
-      completed,
       incorrect,
       current,
-      remaining,
-      finished
+      logs,
+      pressEnter
     } = this.state;
 
+    const line = this.getCurrentLineNumber();
+    const inputChar = String.fromCharCode(key);
+
     if (incorrect.length < 5) {
-      incorrect = incorrect + inputChar;
+      incorrect = incorrect + (key === 13 ? ' ' : inputChar);
+
+      if (incorrect.length === 1) {
+        logs.push({
+          type: "warning",
+          text: "Found '" + (key === 13 ? "[Enter]" : inputChar) + "'; expected '" + (pressEnter ? "[Enter]" : current) + "'",
+          line: line
+        });
+      }
     } else {
-      console.log("limit reached");
+      logs.push({
+        type: "error",
+        text: "Backspace your mistakes before progressing",
+        line: line
+      });
     }
 
     this.setState({
       incorrect: incorrect,
-      backspace: true
+      backspace: true,
+      logs: logs
     });
   }
 
   handleBackspace() {
     let {
-      codeBlock,
       completed,
       incorrect,
       current,
-      remaining,
-      finished
+      remaining
     } = this.state;
 
     if (incorrect.length > 0) {
@@ -195,6 +197,10 @@ export default class Solo extends React.Component {
     return lineNumbers;
   }
 
+  getCurrentLineNumber() {
+    return this.state.completed.split("\n").length;
+  }
+
   render() {
     const {
       codeBlock,
@@ -203,7 +209,8 @@ export default class Solo extends React.Component {
       incorrect,
       remaining,
       pressEnter,
-      backspace
+      backspace,
+      logs
     } = this.state;
 
     const customStyle = {
@@ -258,7 +265,7 @@ export default class Solo extends React.Component {
               </Col>
             </Row>
           </div>
-          <Console />
+          <Console logs={logs}/>
         </div>
       </div>
     );

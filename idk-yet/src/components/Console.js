@@ -1,13 +1,6 @@
 import React from "react";
 import "./../css/Console.css";
 import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
   Row,
   Col
 } from "reactstrap";
@@ -34,36 +27,8 @@ export default class Console extends React.Component {
     };
   }
 
-  componentDidMount() {
-    const { logs } = this.state;
-
-    for (let i = 1; i <= 7; i++) {
-      if (i === 6) {
-        logs.push({
-          text: "Console Log " + i + "\nnew line of text",
-          type: "warning",
-          line: Math.floor(Math.random() * 10) + 1
-        });
-      } else if (i === 4) {
-        logs.push({
-          text: "Console Log " + i,
-          type: "error",
-          line: Math.floor(Math.random() * 10) + 1
-        });
-      } else {
-        logs.push({
-          text: "Console Log " + i,
-          type: "info",
-          line: Math.floor(Math.random() * 10) + 1
-        });
-      }
-    }
-
-    this.setState({ logs: logs });
-  }
-
   render() {
-    const { logs } = this.state;
+    const { logs } = this.props;
 
     return (
       <div className="console">
@@ -90,8 +55,12 @@ export default class Console extends React.Component {
                 <div className={className}>
                   <Row>
                     <Col xs="1">{icon}</Col>
-                    <Col xs="9"><div className="logText">{log.text}</div></Col>
-                    <Col xs="2"><div className="logLine">{"Line " + log.line}</div></Col>
+                    <Col xs="9">
+                      <div className="logText">{log.text}</div>
+                    </Col>
+                    <Col xs="2">
+                      <div className="logLine">{"Line " + log.line}</div>
+                    </Col>
                   </Row>
                 </div>
               );
@@ -105,7 +74,9 @@ export default class Console extends React.Component {
                 <Col>
                   <ArrowRight className="arrowRight invisible" />
                 </Col>
-                <Col><div className="colons">{":\n:\n:\n:"}</div></Col>
+                <Col>
+                  <div className="colons">{":\n:\n:\n:"}</div>
+                </Col>
                 <Col>
                   <ArrowRight className="arrowRight invisible" />
                 </Col>
@@ -123,10 +94,10 @@ export default class Console extends React.Component {
           </div>
           <div className="consoleInput">
             <Row>
-              <Col>
+              <Col xs="1">
                 <ArrowRight className="arrowRight" />
               </Col>
-              <Col>{""}</Col>
+              <Col xs="11">{""}</Col>
             </Row>
           </div>
         </div>
