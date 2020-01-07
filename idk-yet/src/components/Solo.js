@@ -6,10 +6,7 @@ import AppNavbar from "./AppNavbar.js";
 import Console from "./Console.js";
 import PressEnter from "@material-ui/icons/KeyboardReturn";
 import Backspace from "@material-ui/icons/BackspaceOutlined";
-import {
-  Row,
-  Col
-} from "reactstrap";
+import { Row, Col } from "reactstrap";
 
 export default class Solo extends React.Component {
   constructor(props) {
@@ -37,6 +34,7 @@ export default class Solo extends React.Component {
     this.handleBackspace = this.handleBackspace.bind(this);
     this.getLineNumbers = this.getLineNumbers.bind(this);
     this.getCurrentLineNumber = this.getCurrentLineNumber.bind(this);
+    this.clearLog = this.clearLog.bind(this);
   }
 
   componentDidMount() {
@@ -92,12 +90,29 @@ export default class Solo extends React.Component {
   }
 
   handleCorrectInput() {
-    let { codeBlock, completed, current, remaining, finished } = this.state;
+    let {
+      codeBlock,
+      completed,
+      current,
+      remaining,
+      finished,
+      logs
+    } = this.state;
 
     completed = completed + current;
     current = remaining.charAt(0);
     remaining = remaining.substring(1);
     finished = codeBlock === completed;
+
+    if (finished) {
+      document.removeEventListener("keypress", this.handleKeyPress, false);
+      document.removeEventListener("keydown", this.handleKeyDown, false);
+
+      logs.push({
+        type: "info",
+        text: "Finished"
+      });
+    }
 
     this.setState({
       completed: completed,
@@ -105,13 +120,9 @@ export default class Solo extends React.Component {
       remaining: remaining,
       pressEnter: current === "\n",
       backspace: false,
-      finished: finished
+      finished: finished,
+      logs: logs
     });
-
-    if (finished) {
-      document.removeEventListener("keypress", this.handleKeyPress, false);
-      document.removeEventListener("keydown", this.handleKeyDown, false);
-    }
 
     if (current === "\t") {
       this.handleCorrectInput();
@@ -119,48 +130,75 @@ export default class Solo extends React.Component {
   }
 
   handleIncorrectInput(key) {
-    let {
-      incorrect,
-      current,
-      logs,
-      pressEnter
-    } = this.state;
+    let { incorrect, current, logs, pressEnter, logOverflow } = this.state;
 
-    const line = this.getCurrentLineNumber();
     const inputChar = String.fromCharCode(key);
+    let log = null;
 
     if (incorrect.length < 5) {
-      incorrect = incorrect + (key === 13 ? ' ' : inputChar);
+      incorrect = incorrect + (key === 13 ? " " : inputChar);
 
       if (incorrect.length === 1) {
-        logs.push({
+        log = {
           type: "warning",
-          text: "Found '" + (key === 13 ? "[Enter]" : inputChar) + "'; expected '" + (pressEnter ? "[Enter]" : current) + "'",
-          line: line
-        });
+          text:
+            "Found '" +
+            (key === 13 ? "[Enter]" : inputChar) +
+            "'; expected '" +
+            (pressEnter ? "[Enter]" : current) +
+            "'",
+          line: this.getCurrentLineNumber()
+        };
+      } else if (incorrect.length === 5) {
+        log = {
+          type: "error",
+          text: "Backspace your mistakes before progressing",
+          line: this.getCurrentLineNumber()
+        };
       }
-    } else {
-      logs.push({
-        type: "error",
-        text: "Backspace your mistakes before progressing",
-        line: line
-      });
     }
 
     this.setState({
       incorrect: incorrect,
-      backspace: true,
-      logs: logs
+      backspace: true
     });
+
+    if (log) {
+      setTimeout(() => {
+        if (logs.length === 3) {
+          logs.splice(0, 1);
+          this.setState({ logs: logs });
+          setTimeout(() => {
+            logs.push(log);
+            this.setState({ logs: logs });
+          }, 250);
+        } else {
+          logs.push(log);
+          this.setState({ logs: logs });
+        }
+
+        this.clearLog(log);
+      }, 250);
+    }
+  }
+
+  clearLog(log) {
+    setTimeout(() => {
+      const { logs } = this.state;
+
+      if (logs[logs.length - 1] === log) {
+        logs.splice(0, 1);
+        this.setState({ logs: logs });
+
+        if (logs.length > 0) {
+          this.clearLog(logs[logs.length - 1]);
+        }
+      }
+    } , 5000);
   }
 
   handleBackspace() {
-    let {
-      completed,
-      incorrect,
-      current,
-      remaining
-    } = this.state;
+    let { completed, incorrect, current, remaining } = this.state;
 
     if (incorrect.length > 0) {
       incorrect = incorrect.substring(0, incorrect.length - 1);
@@ -258,14 +296,13 @@ export default class Solo extends React.Component {
                   language="java"
                   style={github}
                   customStyle={customStyle}
-                  
                 >
                   {codeBlock}
                 </SyntaxHighlighter>
               </Col>
             </Row>
           </div>
-          <Console logs={logs}/>
+          <Console logs={logs} />
         </div>
       </div>
     );

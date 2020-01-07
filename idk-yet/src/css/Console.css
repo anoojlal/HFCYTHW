@@ -1,126 +1,149 @@
 .console {
-    font-size: 87.5%;
-    position: relative;
+  font-size: 87.5%;
+  position: relative;
 }
 
 .arrowRight {
-    height: 0.75em !important;
-    color: #D90429 !important;
+  height: 0.75em !important;
+  color: #d90429 !important;
 }
 
 .warningIcon {
-    height: 0.75em !important;
-    color: #ffcd3b !important;
-    padding-bottom: 0.1em;
+  height: 0.75em !important;
+  color: #ffcd3b !important;
+  padding-bottom: 0.1em;
 }
 
 .errorIcon {
-    height: 0.72em !important;
-    color: #EF233C !important;
-    padding-bottom: 0.1em;
+  height: 0.72em !important;
+  color: #ef233c !important;
+  padding-bottom: 0.1em;
 }
 
 .sticky {
-    margin-bottom: 50px !important;
-    background: white !important;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
+  margin-bottom: 160px !important;
+  background: white !important;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
 }
 
 .log {
-    border-bottom: 1px solid #EDF2F4;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    white-space: pre;
+  border-bottom: 1px solid #edf2f4;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  white-space: pre;
 }
 
 .stats {
-    padding-top: 1px;
-    padding-bottom: 1px;
-    white-space: pre;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  white-space: pre;
 }
 
 .warning {
-    background: #fcffbd;
+  background: #fcffbd;
 }
 
 .error {
-    background: #ffdbe0;
+  background: #ffdbe0;
 }
 
 .consoleBreak {
-    background: #EDF2F4;
-    width: 100% !important;
-    padding-left: 0% !important;
-    padding-right: 0% !important;
-    -webkit-user-select: none; /* Safari */        
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE10+/Edge */
-    user-select: none; /* Standard */
+  background: #edf2f4;
+  width: 100% !important;
+  padding-left: 0% !important;
+  padding-right: 0% !important;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 }
 
 .consoleInput {
-    padding-top: 7px;
-    padding-bottom: 7px;
-    padding-left: 15% !important;
-    padding-right: 15% !important;
-    border-bottom: 3px solid #dcdfe0 !important;
-    white-space: pre;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 15% !important;
+  padding-right: 15% !important;
+  border-bottom: 3px solid #dcdfe0 !important;
+  white-space: pre;
 }
 
 .consoleLogs {
-    padding-left: 15%;
-    padding-right: 15%;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    border-bottom: 3px solid #dcdfe0 !important;
+  padding-left: 15%;
+  padding-right: 15%;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  border-bottom: 3px solid #dcdfe0 !important;
 }
 
 .col {
-    flex-grow: 0 !important;
-    padding-left: 0px !important; 
-    padding-right: 0px !important;
+  flex-grow: 0 !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 }
 
 .col-1 {
-    padding-left: 0px !important; 
-    padding-right: 0px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 }
 
 .col-2 {
-    padding-left: 0px !important; 
-    padding-right: 0px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 }
 
 .col-3 {
-    padding-left: 0px !important; 
-    padding-right: 0px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 }
 
 .col-5 {
-    padding-left: 0px !important; 
-    padding-right: 0px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 }
 
 .col-9 {
-    padding-left: 0px !important; 
-    padding-right: 0px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 }
 
 .row {
-    margin-left: 0px !important;
-    margin-right: 0px !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
 }
 
 .logText {
-    word-wrap: break-word !important;
+  word-wrap: break-word !important;
 }
 
 .logLine {
-    opacity: 0.6;
+  opacity: 0.6;
 }
 
 .colons {
-    text-align: center !important;
+  text-align: center !important;
+}
+
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 250ms ease-in;
+}
+
+.fade-leave {
+  opacity: 1;
+}
+
+.fade-leave.fade-leave-active {
+  opacity: 0.01;
+  transition: opacity 250ms ease-in;
+}
+
+.scrollable {
+  /* overflow: auto;
+  height: 71.4px; */
 }
