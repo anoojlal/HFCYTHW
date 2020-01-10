@@ -17,16 +17,8 @@ import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 */
 
 export default class Console extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      logs: []
-    };
-  }
-
   render() {
-    const { logs } = this.props;
+    const { logs, time } = this.props;
 
     return (
       <div className="console">
@@ -87,7 +79,7 @@ export default class Console extends React.Component {
                   <ArrowRight className="arrowRight invisible" />
                 </Col>
                 <Col>
-                  {"00:00:00" + "\n"}
+                  {time + "\n"}
                   {"0" + "\n"}
                   {"0.0%" + "\n"}
                   {"[--------------------]"}

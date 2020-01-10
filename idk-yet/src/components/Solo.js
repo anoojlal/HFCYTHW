@@ -24,7 +24,9 @@ export default class Solo extends React.Component {
       finished: false,
       pressEnter: false,
       backspace: false,
-      logs: []
+      logs: [],
+      playing: false,
+      time: "0:00.0"
     };
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -35,6 +37,8 @@ export default class Solo extends React.Component {
     this.getLineNumbers = this.getLineNumbers.bind(this);
     this.getCurrentLineNumber = this.getCurrentLineNumber.bind(this);
     this.clearLog = this.clearLog.bind(this);
+    this.startTimer = this.startTimer.bind(this);
+    this.msToTime = this.msToTime.bind(this);
   }
 
   componentDidMount() {
@@ -52,7 +56,15 @@ export default class Solo extends React.Component {
       return;
     }
 
-    const { incorrect } = this.state;
+    const { incorrect, playing } = this.state;
+
+    if (!playing) {
+      this.setState({
+        playing: true
+      });
+
+      this.startTimer();
+    }
 
     const key = event.keyCode;
     const inputChar = String.fromCharCode(key);
@@ -112,6 +124,8 @@ export default class Solo extends React.Component {
         type: "info",
         text: "Finished"
       });
+
+      clearInterval(this.timer);
     }
 
     this.setState({
@@ -239,6 +253,26 @@ export default class Solo extends React.Component {
     return this.state.completed.split("\n").length;
   }
 
+  startTimer() {
+    const startTime = Date.now();
+
+    this.timer = setInterval(() => {
+      this.setState(prevState => ({
+        time: this.msToTime(Date.now() - startTime)
+    }));
+    }, 1);
+  }
+
+  msToTime(ms) {
+    var milliseconds = parseInt((ms % 1000) / 100),
+      seconds = Math.floor((ms / 1000) % 60),
+      minutes = Math.floor((ms / (1000 * 60)) % 60);
+
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+    return minutes + ":" + seconds + "." + milliseconds;
+  }
+
   render() {
     const {
       codeBlock,
@@ -248,7 +282,9 @@ export default class Solo extends React.Component {
       remaining,
       pressEnter,
       backspace,
-      logs
+      logs,
+      finished,
+      time
     } = this.state;
 
     const customStyle = {
@@ -302,7 +338,7 @@ export default class Solo extends React.Component {
               </Col>
             </Row>
           </div>
-          <Console logs={logs} />
+          <Console logs={logs} time={time} />
         </div>
       </div>
     );
