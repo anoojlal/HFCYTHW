@@ -26,7 +26,11 @@ export default class Solo extends React.Component {
       backspace: false,
       logs: [],
       playing: false,
-      time: "0:00.0"
+      time: "0:00.0",
+      cps: 0,
+      accuracy: 0.0,
+      seconds: 0,
+      incorrectTyped: 0
     };
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -56,16 +60,6 @@ export default class Solo extends React.Component {
       return;
     }
 
-    const { incorrect, playing } = this.state;
-
-    if (!playing) {
-      this.setState({
-        playing: true
-      });
-
-      this.startTimer();
-    }
-
     const key = event.keyCode;
     const inputChar = String.fromCharCode(key);
     const valid = (key >= 32 && key <= 126) || key === 13;
@@ -76,6 +70,16 @@ export default class Solo extends React.Component {
     }
 
     if (valid) {
+      const { incorrect, playing } = this.state;
+
+      if (!playing) {
+        this.setState({
+          playing: true
+        });
+
+        this.startTimer();
+      }
+
       if (
         incorrect.length === 0 &&
         (inputChar === current || (pressEnter && key === 13))
@@ -108,13 +112,27 @@ export default class Solo extends React.Component {
       current,
       remaining,
       finished,
-      logs
+      logs,
+      seconds,
+      cps,
+      accuracy,
+      incorrectTyped
     } = this.state;
 
     completed = completed + current;
     current = remaining.charAt(0);
     remaining = remaining.substring(1);
     finished = codeBlock === completed;
+    cps = (completed.length / (seconds === 0 ? 1 : seconds)).toFixed(2);
+    accuracy = (
+      ((completed.length - incorrectTyped) /
+        (completed.length === 0 ? 1 : completed.length)) *
+      100
+    ).toFixed(2);
+
+    if (accuracy < 0) {
+      accuracy = 0;
+    }
 
     if (finished) {
       document.removeEventListener("keypress", this.handleKeyPress, false);
@@ -135,7 +153,9 @@ export default class Solo extends React.Component {
       pressEnter: current === "\n",
       backspace: false,
       finished: finished,
-      logs: logs
+      logs: logs,
+      cps: cps,
+      accuracy: accuracy
     });
 
     if (current === "\t") {
@@ -144,13 +164,31 @@ export default class Solo extends React.Component {
   }
 
   handleIncorrectInput(key) {
-    let { incorrect, current, logs, pressEnter, logOverflow } = this.state;
+    let {
+      incorrect,
+      current,
+      logs,
+      pressEnter,
+      incorrectTyped,
+      accuracy,
+      completed
+    } = this.state;
 
     const inputChar = String.fromCharCode(key);
     let log = null;
 
     if (incorrect.length < 5) {
       incorrect = incorrect + (key === 13 ? " " : inputChar);
+      incorrectTyped++;
+      accuracy = (
+        ((completed.length - incorrectTyped) /
+          (completed.length === 0 ? 1 : completed.length)) *
+        100
+      ).toFixed(2);
+
+      if (accuracy < 0) {
+        accuracy = 0;
+      }
 
       if (incorrect.length === 1) {
         log = {
@@ -174,13 +212,18 @@ export default class Solo extends React.Component {
 
     this.setState({
       incorrect: incorrect,
-      backspace: true
+      backspace: true,
+      incorrectTyped: incorrectTyped,
+      accuracy: accuracy
     });
 
     if (log) {
       setTimeout(() => {
-        if (logs.length === 3) {
-          logs.splice(0, 1);
+        if (logs.length >= 3) {
+          while (logs.length >= 3) {
+            logs.splice(0, 1);
+          }
+
           this.setState({ logs: logs });
           setTimeout(() => {
             logs.push(log);
@@ -208,7 +251,7 @@ export default class Solo extends React.Component {
           this.clearLog(logs[logs.length - 1]);
         }
       }
-    } , 5000);
+    }, 5000);
   }
 
   handleBackspace() {
@@ -257,18 +300,21 @@ export default class Solo extends React.Component {
     const startTime = Date.now();
 
     this.timer = setInterval(() => {
-      this.setState(prevState => ({
-        time: this.msToTime(Date.now() - startTime)
-    }));
+      const timeElapsed = Date.now() - startTime;
+
+      this.setState({
+        time: this.msToTime(timeElapsed),
+        seconds: Math.floor((timeElapsed / 1000) % 60)
+      });
     }, 1);
   }
 
   msToTime(ms) {
-    var milliseconds = parseInt((ms % 1000) / 100),
+    let milliseconds = parseInt((ms % 1000) / 100),
       seconds = Math.floor((ms / 1000) % 60),
       minutes = Math.floor((ms / (1000 * 60)) % 60);
 
-    seconds = (seconds < 10) ? "0" + seconds : seconds;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
 
     return minutes + ":" + seconds + "." + milliseconds;
   }
@@ -283,8 +329,10 @@ export default class Solo extends React.Component {
       pressEnter,
       backspace,
       logs,
-      finished,
-      time
+      time,
+      cps,
+      accuracy,
+      progress
     } = this.state;
 
     const customStyle = {
@@ -338,7 +386,7 @@ export default class Solo extends React.Component {
               </Col>
             </Row>
           </div>
-          <Console logs={logs} time={time} />
+          <Console logs={logs} time={time} cps={cps} accuracy={accuracy} />
         </div>
       </div>
     );

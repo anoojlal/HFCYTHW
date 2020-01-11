@@ -18,7 +18,7 @@ import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 export default class Console extends React.Component {
   render() {
-    const { logs, time } = this.props;
+    const { logs, time, cps, accuracy, progress } = this.props;
 
     return (
       <div className="console">
@@ -68,7 +68,7 @@ export default class Console extends React.Component {
                 <Col xs="1">
                   <ArrowRight className="arrowRight invisible" />
                 </Col>
-                <Col>{"Timer\nWPM\nAccuracy\nProgress"}</Col>
+                <Col>{"Timer\nCPS\nAccuracy\nProgress"}</Col>
                 <Col>
                   <ArrowRight className="arrowRight invisible" />
                 </Col>
@@ -80,8 +80,8 @@ export default class Console extends React.Component {
                 </Col>
                 <Col>
                   {time + "\n"}
-                  {"0" + "\n"}
-                  {"0.0%" + "\n"}
+                  {cps + "\n"}
+                  {accuracy + "%\n"}
                   {"[--------------------]"}
                 </Col>
               </Row>
