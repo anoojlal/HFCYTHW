@@ -68,7 +68,7 @@ export default class Console extends React.Component {
                 <Col xs="1">
                   <ArrowRight className="arrowRight invisible" />
                 </Col>
-                <Col>{"Timer\nCPS\nAccuracy\nProgress"}</Col>
+                <Col>{"Time\nCPS\nAccuracy\nProgress"}</Col>
                 <Col>
                   <ArrowRight className="arrowRight invisible" />
                 </Col>
@@ -82,7 +82,7 @@ export default class Console extends React.Component {
                   {time + "\n"}
                   {cps + "\n"}
                   {accuracy + "%\n"}
-                  {"[--------------------]"}
+                  {progress}
                 </Col>
               </Row>
             </div>

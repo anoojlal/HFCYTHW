@@ -30,7 +30,8 @@ export default class Solo extends React.Component {
       cps: 0,
       accuracy: 0.0,
       seconds: 0,
-      incorrectTyped: 0
+      incorrectTyped: 0,
+      progress: "[--------------------]"
     };
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -43,6 +44,7 @@ export default class Solo extends React.Component {
     this.clearLog = this.clearLog.bind(this);
     this.startTimer = this.startTimer.bind(this);
     this.msToTime = this.msToTime.bind(this);
+    this.getProgress = this.getProgress.bind(this);
   }
 
   componentDidMount() {
@@ -116,7 +118,8 @@ export default class Solo extends React.Component {
       seconds,
       cps,
       accuracy,
-      incorrectTyped
+      incorrectTyped,
+      progress
     } = this.state;
 
     completed = completed + current;
@@ -157,6 +160,10 @@ export default class Solo extends React.Component {
       cps: cps,
       accuracy: accuracy
     });
+
+    progress = this.getProgress(completed.length, remaining.length);
+
+    this.setState({progress: progress});
 
     if (current === "\t") {
       this.handleCorrectInput();
@@ -255,7 +262,7 @@ export default class Solo extends React.Component {
   }
 
   handleBackspace() {
-    let { completed, incorrect, current, remaining } = this.state;
+    let { completed, incorrect, current, remaining, progress } = this.state;
 
     if (incorrect.length > 0) {
       incorrect = incorrect.substring(0, incorrect.length - 1);
@@ -265,6 +272,7 @@ export default class Solo extends React.Component {
       remaining = current + remaining;
       current = completed.charAt(completed.length - 1);
       completed = completed.substring(0, completed.length - 1);
+      progress = this.getProgress(completed.length, remaining.length);
     }
 
     this.setState({
@@ -273,7 +281,8 @@ export default class Solo extends React.Component {
       remaining: remaining,
       pressEnter: current === "\n",
       backspace: incorrect.length > 0,
-      current: current
+      current: current,
+      progress: progress
     });
 
     if (current === "\t") {
@@ -317,6 +326,38 @@ export default class Solo extends React.Component {
     seconds = seconds < 10 ? "0" + seconds : seconds;
 
     return minutes + ":" + seconds + "." + milliseconds;
+  }
+
+  getProgress(completed, remaining) {
+    if (completed === 0) {
+      return "[--------------------]";
+    }
+
+    if (this.state.finished) {
+      return "[********************]"
+    }
+
+    let progress = "[";
+    let completion = Math.floor(completed / (completed + remaining) * 20);
+
+    if (completion === 20) {
+      completion--;
+    }
+
+    for (let i = 0; i < completion; i++) {
+      progress = progress + '*';
+    }
+
+    progress = progress + 'o';
+
+    for (let i = 0; i < (19 - completion); i++) {
+      progress = progress + '-';
+    }
+
+    progress = progress + ']';
+    console.log(completion);
+
+    return progress;
   }
 
   render() {
@@ -386,7 +427,7 @@ export default class Solo extends React.Component {
               </Col>
             </Row>
           </div>
-          <Console logs={logs} time={time} cps={cps} accuracy={accuracy} />
+          <Console logs={logs} time={time} cps={cps} accuracy={accuracy} progress={progress} />
         </div>
       </div>
     );
