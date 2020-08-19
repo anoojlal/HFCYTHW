@@ -31,7 +31,7 @@ export default class Solo extends React.Component {
       accuracy: 0.0,
       seconds: 0,
       incorrectTyped: 0,
-      progress: "[--------------------]"
+      progress: "[--------------------]",
     };
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -76,7 +76,7 @@ export default class Solo extends React.Component {
 
       if (!playing) {
         this.setState({
-          playing: true
+          playing: true,
         });
 
         this.startTimer();
@@ -119,7 +119,7 @@ export default class Solo extends React.Component {
       cps,
       accuracy,
       incorrectTyped,
-      progress
+      progress,
     } = this.state;
 
     completed = completed + current;
@@ -127,6 +127,9 @@ export default class Solo extends React.Component {
     remaining = remaining.substring(1);
     finished = codeBlock === completed;
     cps = (completed.length / (seconds === 0 ? 1 : seconds)).toFixed(2);
+
+    // length of code / total characters inputted
+
     accuracy = (
       ((completed.length - incorrectTyped) /
         (completed.length === 0 ? 1 : completed.length)) *
@@ -143,7 +146,7 @@ export default class Solo extends React.Component {
 
       logs.push({
         type: "info",
-        text: "Finished"
+        text: "Finished",
       });
 
       clearInterval(this.timer);
@@ -158,12 +161,12 @@ export default class Solo extends React.Component {
       finished: finished,
       logs: logs,
       cps: cps,
-      accuracy: accuracy
+      accuracy: accuracy,
     });
 
     progress = this.getProgress(completed.length, remaining.length);
 
-    this.setState({progress: progress});
+    this.setState({ progress: progress });
 
     if (current === "\t") {
       this.handleCorrectInput();
@@ -178,7 +181,7 @@ export default class Solo extends React.Component {
       pressEnter,
       incorrectTyped,
       accuracy,
-      completed
+      completed,
     } = this.state;
 
     const inputChar = String.fromCharCode(key);
@@ -206,13 +209,13 @@ export default class Solo extends React.Component {
             "'; expected '" +
             (pressEnter ? "[Enter]" : current) +
             "'",
-          line: this.getCurrentLineNumber()
+          line: this.getCurrentLineNumber(),
         };
       } else if (incorrect.length === 5) {
         log = {
           type: "error",
           text: "Backspace your mistakes before progressing",
-          line: this.getCurrentLineNumber()
+          line: this.getCurrentLineNumber(),
         };
       }
     }
@@ -221,28 +224,24 @@ export default class Solo extends React.Component {
       incorrect: incorrect,
       backspace: true,
       incorrectTyped: incorrectTyped,
-      accuracy: accuracy
+      accuracy: accuracy,
     });
 
     if (log) {
-      setTimeout(() => {
-        if (logs.length >= 3) {
-          while (logs.length >= 3) {
-            logs.splice(0, 1);
-          }
-
-          this.setState({ logs: logs });
-          setTimeout(() => {
-            logs.push(log);
-            this.setState({ logs: logs });
-          }, 250);
-        } else {
-          logs.push(log);
-          this.setState({ logs: logs });
+      if (logs.length >= 3) {
+        while (logs.length >= 3) {
+          logs.splice(0, 1);
         }
 
-        this.clearLog(log);
-      }, 250);
+        this.setState({ logs: logs });
+        logs.push(log);
+        this.setState({ logs: logs });
+      } else {
+        logs.push(log);
+        this.setState({ logs: logs });
+      }
+
+      this.clearLog(log);
     }
   }
 
@@ -282,7 +281,7 @@ export default class Solo extends React.Component {
       pressEnter: current === "\n",
       backspace: incorrect.length > 0,
       current: current,
-      progress: progress
+      progress: progress,
     });
 
     if (current === "\t") {
@@ -313,7 +312,7 @@ export default class Solo extends React.Component {
 
       this.setState({
         time: this.msToTime(timeElapsed),
-        seconds: Math.floor((timeElapsed / 1000) % 60)
+        seconds: Math.floor((timeElapsed / 1000) % 60),
       });
     }, 1);
   }
@@ -334,27 +333,27 @@ export default class Solo extends React.Component {
     }
 
     if (this.state.finished) {
-      return "[********************]"
+      return "[********************]";
     }
 
     let progress = "[";
-    let completion = Math.floor(completed / (completed + remaining) * 20);
+    let completion = Math.floor((completed / (completed + remaining)) * 20);
 
     if (completion === 20) {
       completion--;
     }
 
     for (let i = 0; i < completion; i++) {
-      progress = progress + '*';
+      progress = progress + "*";
     }
 
-    progress = progress + 'o';
+    progress = progress + "o";
 
-    for (let i = 0; i < (19 - completion); i++) {
-      progress = progress + '-';
+    for (let i = 0; i < 19 - completion; i++) {
+      progress = progress + "-";
     }
 
-    progress = progress + ']';
+    progress = progress + "]";
     console.log(completion);
 
     return progress;
@@ -373,7 +372,7 @@ export default class Solo extends React.Component {
       time,
       cps,
       accuracy,
-      progress
+      progress,
     } = this.state;
 
     const customStyle = {
@@ -387,7 +386,7 @@ export default class Solo extends React.Component {
       mozUserSelect: "none" /* Firefox */,
       msUserSelect: "none" /* Internet Explorer/Edge */,
       userSelect: "none",
-      padding: "0em"
+      padding: "0em",
       // display: "none"
     };
 
@@ -427,7 +426,13 @@ export default class Solo extends React.Component {
               </Col>
             </Row>
           </div>
-          <Console logs={logs} time={time} cps={cps} accuracy={accuracy} progress={progress} />
+          <Console
+            logs={logs}
+            time={time}
+            cps={cps}
+            accuracy={accuracy}
+            progress={progress}
+          />
         </div>
       </div>
     );

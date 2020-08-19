@@ -15,7 +15,6 @@ button {
 
 button:hover {
     background-color: #2B2D42 !important;
-    border-color: transparent !important; 
 }
 
 button:focus {
