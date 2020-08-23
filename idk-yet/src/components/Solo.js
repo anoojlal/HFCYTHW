@@ -6,6 +6,7 @@ import AppNavbar from "./AppNavbar.js";
 import Console from "./Console.js";
 import PressEnter from "@material-ui/icons/KeyboardReturn";
 import Backspace from "@material-ui/icons/BackspaceOutlined";
+import { asdf } from "./asdf";
 import { Row, Col } from "reactstrap";
 
 export default class Solo extends React.Component {
@@ -50,6 +51,24 @@ export default class Solo extends React.Component {
   componentDidMount() {
     document.addEventListener("keypress", this.handleKeyPress, false);
     document.addEventListener("keydown", this.handleKeyDown, false);
+
+    fetch("https://api.github.com/search/code?q=file+language:java", {
+      headers: {
+        'Authorization': `Bearer ${asdf}`
+      }
+    })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          console.log(error);
+        }
+      )
   }
 
   componentWillUnmount() {
@@ -233,12 +252,12 @@ export default class Solo extends React.Component {
           logs.splice(0, 1);
         }
 
-        this.setState({ logs: logs });
+        this.setState({ logs });
         logs.push(log);
-        this.setState({ logs: logs });
+        this.setState({ logs });
       } else {
         logs.push(log);
-        this.setState({ logs: logs });
+        this.setState({ logs });
       }
 
       this.clearLog(log);
