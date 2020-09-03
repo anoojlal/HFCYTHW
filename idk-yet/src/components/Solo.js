@@ -60,7 +60,9 @@ export default class Solo extends React.Component {
       .then(res => res.json())
       .then(
         (result) => {
-          console.log(result);
+          if (result.items) {
+            console.log(result.items[Math.floor(Math.random() * result.items.length)]);
+          }
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
