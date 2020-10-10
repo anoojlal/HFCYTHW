@@ -4,16 +4,8 @@ import { Row, Col } from "reactstrap";
 import ArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import WarningIcon from "@material-ui/icons/WarningRounded";
 import ErrorIcon from "@material-ui/icons/ErrorRounded";
-
-/*
-  What's displayed in the console:
-
-  Timer
-  WPM
-  Accuracy
-  "Line 10: Backspace your mistakes before progressing"
-  "Found 'a'; expected 's'"
-*/
+import GameStats from "./GameStats";
+import Input from "./Input";
 
 export default class Console extends React.Component {
   render() {
@@ -56,41 +48,17 @@ export default class Console extends React.Component {
                 </div>
               );
             })}
-            <div className="stats">
-              <Row>
-                <Col xs="1">
-                  <ArrowRight className="arrowRight invisible" />
-                </Col>
-                <Col>{"Time\nCPS\nAccuracy\nProgress"}</Col>
-                <Col>
-                  <ArrowRight className="arrowRight invisible" />
-                </Col>
-                <Col>
-                  <div className="colons">{":\n:\n:\n:"}</div>
-                </Col>
-                <Col>
-                  <ArrowRight className="arrowRight invisible" />
-                </Col>
-                <Col>
-                  {time + "\n"}
-                  {cps + "\n"}
-                  {accuracy + "%\n"}
-                  {progress}
-                </Col>
-              </Row>
-            </div>
+            <GameStats
+              time={time}
+              cps={cps}
+              accuracy={accuracy}
+              progress={progress}
+            />
           </div>
           <div className="consoleBreak">
             <br />
           </div>
-          <div className="consoleInput">
-            <Row>
-              <Col xs="1">
-                <ArrowRight className="arrowRight" />
-              </Col>
-              <Col xs="11">{""}</Col>
-            </Row>
-          </div>
+          <Input />
         </div>
       </div>
     );
