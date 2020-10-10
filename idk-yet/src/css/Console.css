@@ -54,10 +54,6 @@
   width: 100% !important;
   padding-left: 0% !important;
   padding-right: 0% !important;
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+/Edge */
-  user-select: none; /* Standard */
 }
 
 .consoleInput {
@@ -125,25 +121,73 @@
   text-align: center !important;
 }
 
-.fade-enter {
-  opacity: 0.01;
+.current {
+  display: inline !important;
+  -webkit-animation: 750ms blink step-end infinite;
+  -moz-animation: 750ms blink step-end infinite;
+  -ms-animation: 750ms blink step-end infinite;
+  -o-animation: 750ms blink step-end infinite;
+  animation: 750ms blink step-end infinite;
+  color: #2b2d42;
+  font-weight: bold;
 }
 
-.fade-enter.fade-enter-active {
-  opacity: 1;
-  transition: opacity 250ms ease-in;
+@keyframes blink {
+  from,
+  to {
+    background: transparent;
+    color: transparent;
+  }
+  50% {
+    background: #ef233c;
+    color: #edf2f4;
+  }
 }
 
-.fade-leave {
-  opacity: 1;
+@-moz-keyframes blink {
+  from,
+  to {
+    background: transparent;
+    color: transparent;
+  }
+  50% {
+    background: #ef233c;
+    color: #edf2f4;
+  }
 }
 
-.fade-leave.fade-leave-active {
-  opacity: 0.01;
-  transition: opacity 250ms ease-in;
+@-webkit-keyframes blink {
+  from,
+  to {
+    background: transparent;
+    color: transparent;
+  }
+  50% {
+    background: #ef233c;
+    color: #edf2f4;
+  }
 }
 
-.scrollable {
-  /* overflow: auto;
-  height: 71.4px; */
+@-ms-keyframes blink {
+  from,
+  to {
+    background: transparent;
+    color: transparent;
+  }
+  50% {
+    background: #ef233c;
+    color: #edf2f4;
+  }
+}
+
+@-o-keyframes blink {
+  from,
+  to {
+    background: transparent;
+    color: transparent;
+  }
+  50% {
+    background: #ef233c;
+    color: #edf2f4;
+  }
 }

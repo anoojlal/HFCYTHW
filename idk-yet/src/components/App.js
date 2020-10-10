@@ -10,7 +10,6 @@ export default class App extends React.Component {
       <Router>
         <div>
           <Route path="/" exact component={Home} />
-          <Route path="/solo" exact component={Solo} />
         </div>
       </Router>
     );

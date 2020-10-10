@@ -1,6 +1,14 @@
 .home {
-    margin-top: 50px !important;
-    margin-bottom: 50px !important;
-    margin-left: 15% !important;
-    margin-right: 15% !important;
+  margin-top: 50px !important;
+  margin-bottom: 50px !important;
+  margin-left: 15% !important;
+  margin-right: 15% !important;
+}
+
+.sticky {
+  margin-bottom: 160px !important;
+  background: white !important;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
 }
