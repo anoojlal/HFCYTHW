@@ -1,6 +1,5 @@
 import React from "react";
 import "./../css/Home.css";
-import { Button } from "reactstrap";
 import AppNavbar from "./AppNavbar.js";
 import Input from "./Input";
 import ConsoleLogs from "./ConsoleLogs";
@@ -12,6 +11,7 @@ export default class Home extends React.Component {
     this.state = {
       userInput: "",
       logs: [],
+      playingSolo: false
     };
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -92,27 +92,36 @@ export default class Home extends React.Component {
     const args = trimmed.split(/\s+/);
 
     if (trimmed === "help") {
-      // help
+      logs.push({
+        type: "info",
+        text: "help\t\t\tView a list of valid commands\nabout\t\t\tRead a description of the app and get a link to the repo\nplay [solo|multi]\tInitiates a solo or multiplayer game depending on the provided argument"
+      });
     } else if (trimmed === "about") {
       // about
     } else if (args[0] === "play") {
       if (args.length < 2) {
-        // add arguments
+        logs.push({
+          type: "warning",
+          text: "Specify a mode to play with an argument of `solo` or `multi`."
+        });
       } else if (args[1] === "solo") {
-        // solo
+        this.props.history.push("/solo");
       } else if (args[1] === "multi") {
         // multi
       } else {
-        // didnt recognize argument
+        logs.push({
+          type: "error",
+          text: `"${args[1]}" is not a valid argument for the \`play\` command. Try \`solo\` or \`multi\`.`
+        });
       }
     } else {
       logs.push({
         type: "error",
         text: `"${input.trim()}" is not a valid command. Type \`help\` for a list of commands.`,
       });
-
-      this.setState({ logs });
     }
+
+    this.setState({ logs });
   }
 
   render() {

@@ -1,12 +1,14 @@
 import React from "react";
 import "./../css/Solo.css";
+import "./../css/Console.css";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { github } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import AppNavbar from "./AppNavbar.js";
-import Console from "./Console.js";
 import PressEnter from "@material-ui/icons/KeyboardReturn";
 import Backspace from "@material-ui/icons/BackspaceOutlined";
 import { Row, Col } from "reactstrap";
+import ConsoleLogs from "./ConsoleLogs";
+import Input from "./Input";
 
 export default class Solo extends React.Component {
   constructor(props) {
@@ -425,13 +427,22 @@ export default class Solo extends React.Component {
               </Col>
             </Row>
           </div>
-          <Console
-            logs={logs}
-            time={time}
-            cps={cps}
-            accuracy={accuracy}
-            progress={progress}
-          />
+          <div className="console">
+            <div className="sticky">
+              <ConsoleLogs
+                logs={logs}
+                time={time}
+                cps={cps}
+                accuracy={accuracy}
+                progress={progress}
+                playing
+              />
+              <div className="consoleBreak">
+                <br />
+              </div>
+              <Input playing />
+            </div>
+          </div>
         </div>
       </div>
     );
