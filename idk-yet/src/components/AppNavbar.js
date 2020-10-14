@@ -33,21 +33,8 @@ export default class AppNavbar extends React.Component {
         <Navbar classname="navbar" light expand="md">
           <NavbarBrand href="/">
             <Logo className="logo" />
-            appName
+            YeetCode
           </NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="/">Home</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">
-                  GitHub
-                </NavLink>
-              </NavItem>
-            </Nav>
-          </Collapse>
         </Navbar>
       </div>
     );

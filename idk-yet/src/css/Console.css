@@ -29,10 +29,13 @@
 }
 
 .log {
-  border-bottom: 1px solid #edf2f4;
   padding-top: 1px;
   padding-bottom: 1px;
   white-space: pre;
+}
+
+.logBorder {
+  border-bottom: 1px solid #edf2f4;
 }
 
 .stats {
