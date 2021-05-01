@@ -6,33 +6,8 @@ import WarningIcon from "@material-ui/icons/WarningRounded";
 import ErrorIcon from "@material-ui/icons/ErrorRounded";
 
 export default class ConsoleLogs extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      logs: [],
-    };
-  }
-
-  componentDidMount() {
-    this.setState({ logs: this.props.logs });
-  }
-
-  componentDidUpdate() {
-    let { logs } = this.state;
-
-    if (logs.length > 4) {
-      while (logs.length > 4) {
-        logs.splice(0, 1);
-      }
-
-      this.setState({ logs });
-    }
-  }
-
   render() {
-    const { logs } = this.state;
-    const { playing, time, cps, accuracy, progress } = this.props;
+    const { logs, playing, time, cps, accuracy, progress } = this.props;
 
     return (
       <div className="consoleLogs">

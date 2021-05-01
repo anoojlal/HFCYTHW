@@ -11,7 +11,7 @@ export default class Home extends React.Component {
     this.state = {
       userInput: "",
       logs: [],
-      playingSolo: false
+      playingSolo: false,
     };
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -94,7 +94,8 @@ export default class Home extends React.Component {
     if (trimmed === "help") {
       logs.push({
         type: "info",
-        text: "help\t\t\tView a list of valid commands\nabout\t\t\tRead a description of the app and get a link to the repo\nplay [solo|multi]\tInitiates a solo or multiplayer game depending on the provided argument"
+        text:
+          "help\t\t\tView a list of valid commands\nabout\t\t\tRead a description of the app and get a link to the repo\nplay [solo|multi]\tInitiates a solo or multiplayer game depending on the provided argument",
       });
     } else if (trimmed === "about") {
       // about
@@ -102,7 +103,7 @@ export default class Home extends React.Component {
       if (args.length < 2) {
         logs.push({
           type: "warning",
-          text: "Specify a mode to play with an argument of `solo` or `multi`."
+          text: "Specify a mode to play with an argument of `solo` or `multi`.",
         });
       } else if (args[1] === "solo") {
         this.props.history.push("/solo");
@@ -111,7 +112,7 @@ export default class Home extends React.Component {
       } else {
         logs.push({
           type: "error",
-          text: `"${args[1]}" is not a valid argument for the \`play\` command. Try \`solo\` or \`multi\`.`
+          text: `"${args[1]}" is not a valid argument for the \`play\` command. Try \`solo\` or \`multi\`.`,
         });
       }
     } else {
@@ -119,6 +120,14 @@ export default class Home extends React.Component {
         type: "error",
         text: `"${input.trim()}" is not a valid command. Type \`help\` for a list of commands.`,
       });
+    }
+
+    if (logs.length > 4) {
+      while (logs.length > 4) {
+        logs.splice(0, 1);
+      }
+
+      this.setState({ logs });
     }
 
     this.setState({ logs });
