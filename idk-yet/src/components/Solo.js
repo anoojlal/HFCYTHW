@@ -19,6 +19,7 @@ export default class Solo extends React.Component {
 
     this.state = {
       codeBlock: codeBlock,
+      length: codeBlock.length,
       completed: "",
       current: codeBlock.charAt(0),
       incorrect: "",
@@ -34,6 +35,7 @@ export default class Solo extends React.Component {
       seconds: 0,
       incorrectTyped: 0,
       progress: "[--------------------]",
+      numInputs: 0,
     };
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -67,14 +69,14 @@ export default class Solo extends React.Component {
     const key = event.keyCode;
     const inputChar = String.fromCharCode(key);
     const valid = (key >= 32 && key <= 126) || key === 13;
-    const { current, pressEnter } = this.state;
 
     if (inputChar === " ") {
       event.preventDefault();
     }
 
     if (valid) {
-      const { incorrect, playing } = this.state;
+      const { current, pressEnter, incorrect, playing } =
+        this.state;
 
       if (!playing) {
         this.setState({
@@ -119,9 +121,8 @@ export default class Solo extends React.Component {
       logs,
       seconds,
       cps,
-      accuracy,
-      incorrectTyped,
       progress,
+      numInputs,
     } = this.state;
 
     completed = completed + current;
@@ -130,25 +131,13 @@ export default class Solo extends React.Component {
     finished = codeBlock === completed;
     cps = (completed.length / (seconds === 0 ? 1 : seconds)).toFixed(2);
 
-    // length of code / total characters inputted
-
-    accuracy = (
-      ((completed.length - incorrectTyped) /
-        (completed.length === 0 ? 1 : completed.length)) *
-      100
-    ).toFixed(2);
-
-    if (accuracy < 0) {
-      accuracy = 0;
-    }
-
     if (finished) {
       document.removeEventListener("keypress", this.handleKeyPress, false);
       document.removeEventListener("keydown", this.handleKeyDown, false);
 
       logs.push({
         type: "info",
-        text: "Finished",
+        text: "Finished. Hit Refresh to play again.",
       });
 
       clearInterval(this.timer);
@@ -163,7 +152,8 @@ export default class Solo extends React.Component {
       finished: finished,
       logs: logs,
       cps: cps,
-      accuracy: accuracy,
+      numInputs: numInputs + 1,
+      accuracy: ((completed.length / (numInputs + 1)) * 100).toFixed(2),
     });
 
     progress = this.getProgress(completed.length, remaining.length);
@@ -176,31 +166,14 @@ export default class Solo extends React.Component {
   }
 
   handleIncorrectInput(key) {
-    let {
-      incorrect,
-      current,
-      logs,
-      pressEnter,
-      incorrectTyped,
-      accuracy,
-      completed,
-    } = this.state;
+    let { incorrect, current, logs, pressEnter, numInputs, completed } =
+      this.state;
 
     const inputChar = String.fromCharCode(key);
     let log = null;
 
     if (incorrect.length < 5) {
       incorrect = incorrect + (key === 13 ? " " : inputChar);
-      incorrectTyped++;
-      accuracy = (
-        ((completed.length - incorrectTyped) /
-          (completed.length === 0 ? 1 : completed.length)) *
-        100
-      ).toFixed(2);
-
-      if (accuracy < 0) {
-        accuracy = 0;
-      }
 
       if (incorrect.length === 1) {
         log = {
@@ -225,8 +198,8 @@ export default class Solo extends React.Component {
     this.setState({
       incorrect: incorrect,
       backspace: true,
-      incorrectTyped: incorrectTyped,
-      accuracy: accuracy,
+      numInputs: numInputs + 1,
+      accuracy: ((completed.length / (numInputs + 1)) * 100).toFixed(2),
     });
 
     if (log) {
