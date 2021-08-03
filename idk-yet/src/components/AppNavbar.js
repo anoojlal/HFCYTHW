@@ -1,13 +1,8 @@
 import React from "react";
 import "./../css/AppNavbar.css";
 import {
-  Collapse,
   Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink
+  NavbarBrand
 } from "reactstrap";
 import Logo from "@material-ui/icons/Code";
 
@@ -33,7 +28,7 @@ export default class AppNavbar extends React.Component {
         <Navbar classname="navbar" light expand="md">
           <NavbarBrand href="/">
             <Logo className="logo" />
-            YeetCode
+            HFCYTHW
           </NavbarBrand>
         </Navbar>
       </div>

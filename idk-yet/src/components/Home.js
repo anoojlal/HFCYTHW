@@ -27,7 +27,7 @@ export default class Home extends React.Component {
 
     logs.push({
       type: "info",
-      text: "Welcome to YeetCode.",
+      text: "Welcome to HFCYTHW.",
     });
 
     this.setState({ logs });
@@ -84,7 +84,7 @@ export default class Home extends React.Component {
   handleUserInput(input) {
     const trimmed = input.trim().toLowerCase();
 
-    if (trimmed.length == 0) {
+    if (trimmed.length === 0) {
       return;
     }
 
@@ -95,10 +95,14 @@ export default class Home extends React.Component {
       logs.push({
         type: "info",
         text:
-          "help\t\t\tView a list of valid commands\nabout\t\t\tRead a description of the app and get a link to the repo\nplay [solo|multi]\tInitiates a solo or multiplayer game depending on the provided argument",
+          "help\t\t\tView a list of valid commands\nabout\t\t\tRead a description of the app\nplay [solo|multi]\tInitiates a solo or multiplayer game depending on the provided argument",
       });
     } else if (trimmed === "about") {
-      // about
+      logs.push({
+        type: "info",
+        text:
+          "I wanted to know how fast I could type `Hello World!`\nso I made this app called HFCYTHW (How Fast Can You Type Hello World).\nEnjoy ;) - @anoojlal on Github",
+      });
     } else if (args[0] === "play") {
       if (args.length < 2) {
         logs.push({
@@ -108,7 +112,11 @@ export default class Home extends React.Component {
       } else if (args[1] === "solo") {
         this.props.history.push("/solo");
       } else if (args[1] === "multi") {
-        // multi
+        logs.push({
+          type: "info",
+          text:
+            "Multiplayer functionality coming soon (jk coderacer.dev exists lol)",
+        });
       } else {
         logs.push({
           type: "error",
